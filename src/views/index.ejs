@@ -1,0 +1,25 @@
+<%- include('layout') %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% posts.forEach(post => { %>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <% if (post.imageUrl) { %>
+                <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="w-full h-48 object-cover">
+            <% } %>
+            <div class="p-6">
+                <h2 class="text-xl font-semibold mb-2"><%= post.title %></h2>
+                <p class="text-gray-600 mb-4"><%= post.content.substring(0, 150) %>...</p>
+                <div class="flex justify-between items-center">
+                    <a href="/posts/<%= post._id %>" class="text-primary hover:text-blue-600">Read More</a>
+                    <span class="text-sm text-gray-500"><%= new Date(post.createdAt).toLocaleDateString() %></span>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+<% if (posts.length === 0) { %>
+    <div class="text-center py-8">
+        <p class="text-gray-600">No posts found. Create your first post!</p>
+        <a href="/posts/new" class="mt-4 inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Create Post</a>
+    </div>
+<% } %>

@@ -1,0 +1,30 @@
+<%- include('../layout') %>
+
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <% if (post.imageUrl) { %>
+            <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="w-full h-96 object-cover">
+        <% } %>
+        <div class="p-8">
+            <h1 class="text-3xl font-bold mb-4"><%= post.title %></h1>
+            <div class="flex items-center text-gray-500 text-sm mb-6">
+                <span>Posted on <%= new Date(post.createdAt).toLocaleDateString() %></span>
+                <% if (post.updatedAt > post.createdAt) { %>
+                    <span class="ml-4">Updated on <%= new Date(post.updatedAt).toLocaleDateString() %></span>
+                <% } %>
+            </div>
+            <div class="prose max-w-none mb-8">
+                <%= post.content %>
+            </div>
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-gray-600 hover:text-gray-900">← Back to Home</a>
+                <div class="space-x-4">
+                    <a href="/posts/<%= post._id %>/edit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600">Edit Post</a>
+                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Delete Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
